@@ -10,7 +10,8 @@ export class CockpitComponent implements OnInit {
   @Output() blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
   @ViewChild('serverContentInput') serverContentInput;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

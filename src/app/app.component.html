@@ -1,2 +1,9 @@
-<input type="text" [(ngModel)]="name">
-<p>{{ name }}</p>
+<div class="container">
+  <app-cockpit></app-cockpit>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-server-element *ngFor="let serverElement of serverElements"></app-server-element>
+    </div>
+  </div>
+</div>

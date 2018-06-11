@@ -48,8 +48,7 @@ export class AppComponent {
       .subscribe(
         (servers: any[]) => {
           this.servers = servers
-        },
-        (error) => console.log(error)
+        }
       );
   }
 }

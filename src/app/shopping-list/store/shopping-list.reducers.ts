@@ -2,14 +2,10 @@ import * as ShoppingListActions from './shopping-list.actions';
 
 import { Ingredient } from '../../shared/ingredient.model';
 
-export interface AppState {
-  shoppingList: State
-}
-
 export interface State {
-  ingredients: Ingredient[],
-  editedIngredient: Ingredient,
-  editedIngredientIndex: number
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
 }
 
 const initialState: State = {
@@ -19,7 +15,7 @@ const initialState: State = {
   ],
   editedIngredient: null,
   editedIngredientIndex: -1
-}
+};
 
 export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
   switch (action.type) {
@@ -34,25 +30,25 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ingredients: [...state.ingredients, ...action.payload]
       };
     case ShoppingListActions.UPDATE_INGREDIENT:
-      const ingredient = state.ingredients[state.editedIngredientIndex]
+      const ingredient = state.ingredients[state.editedIngredientIndex];
       const updatedIngredient = {
         ...ingredient,
         ...action.payload.ingredient
-      }
-      const newIngredients = [...state.ingredients];
-      newIngredients[state.editedIngredientIndex] = updatedIngredient;
+      };
+      const ingredients = [...state.ingredients];
+      ingredients[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
-        ingredients: newIngredients,
+        ingredients: ingredients,
         editedIngredient: null,
         editedIngredientIndex: -1
       };
     case ShoppingListActions.DELETE_INGREDIENT:
-      const ingredients = [...state.ingredients];
-      ingredients.splice(state.editedIngredientIndex, 1);
+      const oldIngredients = [...state.ingredients];
+      oldIngredients.splice(state.editedIngredientIndex, 1);
       return {
         ...state,
-        ingredients: ingredients,
+        ingredients: oldIngredients,
         editedIngredient: null,
         editedIngredientIndex: -1
       };

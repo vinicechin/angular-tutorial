@@ -72,6 +72,4 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
     default:
       return state;
   }
-
-  return state;
 }

@@ -18,7 +18,7 @@ const initialState: State = {
     new Ingredient('Tomatoes', 10),
   ],
   editedIngredient: null,
-  editedIngredientIndex: null
+  editedIngredientIndex: -1
 }
 
 export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
@@ -34,23 +34,30 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ingredients: [...state.ingredients, ...action.payload]
       };
     case ShoppingListActions.UPDATE_INGREDIENT:
-      const ingredient = state.ingredients[action.payload.index]
+      const ingredient = state.ingredients[state.editedIngredientIndex]
       const updatedIngredient = {
         ...ingredient,
         ...action.payload.ingredient
       }
       const newIngredients = [...state.ingredients];
-      newIngredients[action.payload.index] = updatedIngredient;
+      newIngredients[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
         ingredients: newIngredients
       };
     case ShoppingListActions.DELETE_INGREDIENT:
       const ingredients = [...state.ingredients];
-      ingredients.splice(action.payload, 1);
+      ingredients.splice(state.editedIngredientIndex, 1);
       return {
         ...state,
         ingredients: ingredients
+      };
+    case ShoppingListActions.START_EDIT:
+      const editedIngredient = {...state.ingredients[action.payload]};
+      return {
+        ...state,
+        editedIngredient: editedIngredient,
+        editedIngredientIndex: action.payload
       };
     default:
       return state;
